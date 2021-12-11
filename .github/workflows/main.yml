@@ -8,7 +8,7 @@ jobs:
     - name: zip esxlambdatickers
       uses: montudor/action-zip@v0.1.0
       with:
-        args: zip -j esxlambdatickers.zip ./lambdas/esxlambdatickers/*
+        args: zip -j esxlambdatickers.zip lambdas/esxlambdatickers/
     - name: deploy esxlambdatickers
       uses: appleboy/lambda-action@master
       with:
