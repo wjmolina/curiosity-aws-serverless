@@ -8,7 +8,7 @@ jobs:
     - name: zip esxlambdatickers
       uses: montudor/action-zip@v0.1.0
       with:
-        args: zip -g -j cachetools.zip lambdas/esxlambdatickers/lambda_function.py
+        args: zip -g -j lambdas/esxlambdatickers/package.zip lambdas/esxlambdatickers/lambda_function.py
     - name: deploy esxlambdatickers
       uses: appleboy/lambda-action@master
       with:
@@ -16,7 +16,7 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: us-east-1
         function_name: esxlambdatickers
-        zip_file: esxlambdatickers.zip
+        zip_file: package.zip
   deploy_esxlambdaclientinfo:
     runs-on: ubuntu-latest
     steps:
