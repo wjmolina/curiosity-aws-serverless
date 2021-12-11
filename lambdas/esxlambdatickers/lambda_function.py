@@ -35,5 +35,3 @@ def lambda_handler(event, context):
         },
         "body": json.dumps(message)
     }
-
-# test
