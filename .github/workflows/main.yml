@@ -1,0 +1,47 @@
+name: deploy to aws
+on: [push]
+jobs:
+  deploy_esxlambdatickers:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: zip esxlambdatickers
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -j esxlambdatickers.zip lambdas/esxlambdatickers/*
+    - name: deploy esxlambdatickers
+      uses: appleboy/lambda-action@master
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: us-east-1
+        function_name: lambda_function
+        zip_file: esxlambdatickers.zip
+  deploy_esxlambdaclientinfo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: zip esxlambdaclientinfo
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -j esxlambdaclientinfo.zip lambdas/esxlambdaclientinfo/*
+    - name: deploy esxlambdaclientinfo
+      uses: appleboy/lambda-action@master
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: us-east-1
+        function_name: lambda_function
+        zip_file: esxlambdaclientinfo.zip
+  deploy_esxwallpapersbucket:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: configure credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    - name: deploy esxwallpapersbucket
+      run: aws s3 sync ./esxwallpapersbucket/ s3://esxwallpapersbucket --delete
