@@ -16,7 +16,7 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: us-east-1
         function_name: esxlambdatickers
-        zip_file: package.zip
+        zip_file: lambdas/esxlambdatickers/package.zip
   deploy_esxlambdaclientinfo:
     runs-on: ubuntu-latest
     steps:
