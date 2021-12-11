@@ -24,7 +24,7 @@ jobs:
     - name: zip esxlambdaclientinfo
       uses: montudor/action-zip@v0.1.0
       with:
-        args: zip -j esxlambdaclientinfo lambdas/esxlambdaclientinfo/lambda_function.py
+        args: zip -r -j esxlambdaclientinfo lambdas/esxlambdaclientinfo/
     - name: deploy esxlambdaclientinfo
       uses: appleboy/lambda-action@master
       with:
