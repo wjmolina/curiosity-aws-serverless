@@ -37,19 +37,18 @@ def get_clientip(
 
 
 def lambda_handler(event, _):
-    # tickers = [
-    #     ticker.upper().strip()
-    #     for ticker in (event or {})
-    #     .get("queryStringParameters", {})
-    #     .get("tickers", "")
-    #     .split(",")
-    #     if ticker
-    # ]
-    # clientip = event.get("requestContext", {}).get("identity", {}).get("sourceIp")
-    # message = get_clientip(clientip, tickers)
+    tickers = [
+        ticker.upper().strip()
+        for ticker in (event.get("queryStringParameters", {}) or {})
+        .get("tickers", "")
+        .split(",")
+        if ticker
+    ]
+    clientip = event.get("requestContext", {}).get("identity", {}).get("sourceIp")
+    message = get_clientip(clientip, tickers)
     return {
         "headers": {
             "Access-Control-Allow-Origin": "*",
         },
-        "body": json.dumps(event),
+        "body": json.dumps(message),
     }
