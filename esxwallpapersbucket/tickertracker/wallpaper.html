@@ -8,18 +8,38 @@
 </head>
 
 <body>
-    TODO
-</body>
+    <script>
+        tickers = "AAPL,GOOGL,TSLA,AMZN,NVDA,FB,NFLX,TWTR,TWLO"
 
-<script>
-    setInterval(() => {
-        $.post("https://isyqwlkqej.execute-api.us-east-1.amazonaws.com/esx/clientinfo")
-    }, 1000)
-    setInterval(() => {
-        $.get("https://isyqwlkqej.execute-api.us-east-1.amazonaws.com/esx/tickers?tickers=AAPL", (tickers) => {
-            // `tickers` is a list of tickers. Work with them here.
-        })
-    }, 5000)
-</script>
+        for (let i = 0; i < tickers.split(",").length; i++) {
+            let tickerDiv = document.createElement("div")
+            tickerDiv.id = `ticker${i}`
+            document.getElementsByTagName("body")[0].appendChild(tickerDiv)
+        }
+
+        postClientInfo()
+        setInterval(() => {
+            postClientInfo()
+        }, 1000)
+
+        getTickers()
+        setInterval(() => {
+            getTickers()
+        }, 5 * 60 * 1000)
+
+        function postClientInfo() {
+            $.post("https://isyqwlkqej.execute-api.us-east-1.amazonaws.com/esx/clientinfo")
+        }
+
+        function getTickers() {
+            $.get(`https://isyqwlkqej.execute-api.us-east-1.amazonaws.com/esx/tickers?tickers=${tickers}`, (tickerInfo) => {
+                console.log(tickerInfo)
+                for (let i = 0; i < tickerInfo.length; i++) {
+                    $(`#ticker${i}`).text(JSON.stringify(tickerInfo[i]))
+                }
+            })
+        }
+    </script>
+</body>
 
 </html>
