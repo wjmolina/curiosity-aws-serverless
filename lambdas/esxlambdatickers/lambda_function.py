@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime, timedelta
 
 import urllib3
@@ -9,7 +10,7 @@ TIME_DELTA_TICKER = timedelta(minutes=5)
 MAX_TICKERS = 9
 MAX_SIZE_CLIENT_CACHE = 100
 MAX_SIZE_TICKER_CACHE = MAX_SIZE_CLIENT_CACHE * MAX_TICKERS
-API_KEY = "7fc86eb53efdbebe53aedf3b4ddf08bf"
+API_KEY = os.environ.get("API_KEY")
 
 
 @ttl_cache(ttl=TIME_DELTA_TICKER, timer=datetime.now, maxsize=MAX_SIZE_TICKER_CACHE)
