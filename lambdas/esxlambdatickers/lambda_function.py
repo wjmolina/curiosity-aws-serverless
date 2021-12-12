@@ -39,7 +39,8 @@ def get_clientip(
 def lambda_handler(event, context):
     tickers = [
         ticker.upper().strip()
-        for ticker in event.get("queryStringParameters", {})
+        for ticker in (event or {})
+        .get("queryStringParameters", {})
         .get("tickers", "")
         .split(",")
         if ticker
