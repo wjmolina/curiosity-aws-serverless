@@ -62,16 +62,19 @@ def lambda_handler(event, _):
         if ticker
     ]
     if "httpMethod" not in event:
-        response = http.request(
-            "GET",
-            "https://esxwallpapersbucket.s3.amazonaws.com/tickertracker/wallpaper.html",
-        ).data.decode("utf8")
-        print(response)
+        response = (
+            http.request(
+                "GET",
+                "https://esxwallpapersbucket.s3.amazonaws.com/tickertracker/wallpaper.html",
+            )
+            .data.decode("utf8")
+            .replace("TICKERS_PLACEHOLDER", ",".join(tickers))
+        )
         return {
             "headers": {
                 "Access-Control-Allow-Origin": "*",
             },
-            "body": "I did the thing.",
+            "body": response,
         }
     else:
         clientip = event.get("requestContext", {}).get("identity", {}).get("sourceIp")
