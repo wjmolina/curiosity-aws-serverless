@@ -61,16 +61,7 @@ def lambda_handler(event, _):
         .split(",")
         if ticker
     ]
-    if event["httpMethod"] == "POST":
-        clientip = event.get("requestContext", {}).get("identity", {}).get("sourceIp")
-        message = get_clientip(clientip, tickers)
-        return {
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-            },
-            "body": json.dumps(message),
-        }
-    elif event["httpMethod"] == "GET":
+    if "httpMethod" not in event:
         response = http.request(
             "GET",
             "https://esxwallpapersbucket.s3.amazonaws.com/tickertracker/wallpaper.html",
@@ -81,4 +72,13 @@ def lambda_handler(event, _):
                 "Access-Control-Allow-Origin": "*",
             },
             "body": "I did the thing.",
+        }
+    else:
+        clientip = event.get("requestContext", {}).get("identity", {}).get("sourceIp")
+        message = get_clientip(clientip, tickers)
+        return {
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+            },
+            "body": json.dumps(message),
         }
