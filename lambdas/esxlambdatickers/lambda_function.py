@@ -6,8 +6,8 @@ from time import sleep
 import urllib3
 from cachetools.func import TTLCache, ttl_cache
 
-TIME_DELTA_CLIENT = timedelta(minutes=5)
-TIME_DELTA_TICKER = timedelta(minutes=5)
+TIME_DELTA_CLIENT = timedelta(minutes=15)
+TIME_DELTA_TICKER = timedelta(minutes=15)
 MAX_TICKERS = 9
 MAX_SIZE_CLIENT_CACHE = 100
 MAX_SIZE_TICKER_CACHE = MAX_SIZE_CLIENT_CACHE * MAX_TICKERS
