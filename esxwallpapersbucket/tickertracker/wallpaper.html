@@ -281,17 +281,14 @@
       function getTickers() {
         $.post(`https://isyqwlkqej.execute-api.us-east-1.amazonaws.com/esx/tickers?tickers=${tickers}`, (tickerInfo) => {
           for (let i = 0; i < tickerInfo.length; i++) {
-            if (tickerInfo[i]["changes"] < 0) {
-              $(`#ticker${i + 1}_name`).addClass("negative");
-            } else {
-              $(`#ticker${i + 1}_name`).addClass("positive");
-            }
             $(`#ticker${i + 1}_name`).attr("data-description", tickerInfo[i]["companyName"]);
             $(`#ticker${i + 1}_ticker`).text(tickerInfo[i]["symbol"])
             $(`#ticker${i + 1}_price`).text(tickerInfo[i]["price"].toFixed(2))
             if (tickerInfo[i]["changes"] < 0) {
+              $(`#ticker${i + 1}_name`).addClass("negative");
               $(`#ticker${i + 1}_change`).html(Math.abs(tickerInfo[i]["changes"]).toFixed(2).toString() + ' <i class="fas fa-arrow-down"></i>')
             } else {
+              $(`#ticker${i + 1}_name`).addClass("positive");
               $(`#ticker${i + 1}_change`).html(Math.abs(tickerInfo[i]["changes"]).toFixed(2).toString() + ' <i class="fas fa-arrow-up"></i>')
             }
             $(`#ticker${i + 1}_image`).attr("src", tickerInfo[i]["image"]);
