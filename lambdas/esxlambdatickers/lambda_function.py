@@ -61,7 +61,6 @@ def lambda_handler(event, _):
         .split(",")
         if ticker
     ]
-    print(event)
     if "httpMethod" not in event:
         response = (
             http.request(
@@ -78,6 +77,7 @@ def lambda_handler(event, _):
         return {
             "headers": {
                 "Access-Control-Allow-Origin": "*",
+                "Content-Type": "text/html",
             },
             "body": json.dumps(message),
         }
