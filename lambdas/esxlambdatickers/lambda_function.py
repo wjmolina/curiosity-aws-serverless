@@ -70,12 +70,7 @@ def lambda_handler(event, _):
             .data.decode("utf8")
             .replace("TICKERS_PLACEHOLDER", ",".join(tickers))
         )
-        return {
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-            },
-            "body": response,
-        }
+        return response
     else:
         clientip = event.get("requestContext", {}).get("identity", {}).get("sourceIp")
         message = get_clientip(clientip, tickers)
