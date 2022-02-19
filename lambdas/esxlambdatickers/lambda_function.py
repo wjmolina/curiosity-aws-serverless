@@ -36,7 +36,11 @@ def get_clientip(
 ):
     if clientip in cache:
         return cache[clientip]
-    cache[clientip] = [get_ticker(ticker) for ticker in tickers[:MAX_TICKERS]]
+    cache[clientip] = [
+        ticker_object
+        for ticker in tickers[:MAX_TICKERS]
+        if (ticker_object := get_ticker(ticker))
+    ]
     return cache[clientip]
 
 
