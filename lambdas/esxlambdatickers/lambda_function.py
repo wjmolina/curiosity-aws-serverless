@@ -61,6 +61,7 @@ def lambda_handler(event, _):
         .split(",")
         if ticker
     ]
+    print(event)
     if "httpMethod" not in event:
         response = (
             http.request(
