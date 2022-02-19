@@ -1,0 +1,22 @@
+name: deploy esxlambdaclientinfo
+on:
+  push:
+    paths:
+      - lambdas/esxlambdaclientinfo/**
+jobs:
+  deploy_esxlambdaclientinfo:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: zip esxlambdaclientinfo
+      uses: montudor/action-zip@v0.1.0
+      with:
+        args: zip -r -j esxlambdaclientinfo lambdas/esxlambdaclientinfo/
+    - name: deploy esxlambdaclientinfo
+      uses: appleboy/lambda-action@master
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: us-east-1
+        function_name: esxlambdaclientinfo
+        zip_file: esxlambdaclientinfo.zip
