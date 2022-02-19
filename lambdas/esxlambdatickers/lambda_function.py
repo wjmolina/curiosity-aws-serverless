@@ -60,7 +60,7 @@ def lambda_handler(event, _):
         .get("tickers", "")
         .split(",")
         if ticker
-    ]
+    ] or ["GOOG", "AMZN", "FB"]
     if event["httpMethod"] == "GET":
         return {
             "headers": {
