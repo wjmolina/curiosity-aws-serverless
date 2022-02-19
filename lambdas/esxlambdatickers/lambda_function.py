@@ -62,21 +62,24 @@ def lambda_handler(event, _):
         if ticker
     ]
     if event["httpMethod"] == "GET":
-        return (
-            http.request(
+        return {
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "text/html",
+            },
+            "body": http.request(
                 "GET",
                 "https://esxwallpapersbucket.s3.amazonaws.com/tickertracker/wallpaper.html",
             )
             .data.decode("utf8")
-            .replace("TICKERS_PLACEHOLDER", ",".join(tickers))
-        )
+            .replace("TICKERS_PLACEHOLDER", ",".join(tickers)),
+        }
     elif event["httpMethod"] == "POST":
         clientip = event.get("requestContext", {}).get("identity", {}).get("sourceIp")
         message = get_clientip(clientip, tickers)
         return {
             "headers": {
                 "Access-Control-Allow-Origin": "*",
-                "Content-Type": "text/html",
             },
             "body": json.dumps(message),
         }
