@@ -148,12 +148,12 @@
       -webkit-text-fill-color: transparent;
     }
 
-      {
+    .negative {
       background: linear-gradient(to bottom right, #d32500 0%, #5a1000 100%);
     }
 
-    .title,
-    .description {
+    .negative .title,
+    .negative .description {
       background: -webkit-linear-gradient(#fffb00, #d32500);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -176,8 +176,7 @@
         <div id="ticker1_ticker" class="title"></div>
         <div id="ticker1_price" class="description"></div>
         <div id="ticker1_change" class="description"></div>
-        <div class="description"><img id="ticker1_image" src="">
-        </div>
+        <div class="description"><img id="ticker1_image"></div>
         <div id="ticker1_percentage" class="description"></div>
       </div>
     </div>
@@ -186,8 +185,7 @@
         <div id="ticker2_ticker" class="title"></div>
         <div id="ticker2_price" class="description"></div>
         <div id="ticker2_change" class="description"></div>
-        <div class="description"><img id="ticker2_image" src="">
-        </div>
+        <div class="description"><img id="ticker2_image"></div>
         <div id="ticker2_percentage" class="description"></div>
       </div>
     </div>
@@ -196,8 +194,7 @@
         <div id="ticker3_ticker" class="title"></div>
         <div id="ticker3_price" class="description"></div>
         <div id="ticker3_change" class="description"></div>
-        <div class="description"><img id="ticker3_image" src="">
-        </div>
+        <div class="description"><img id="ticker3_image"></div>
         <div id="ticker3_percentage" class="description"></div>
       </div>
     </div>
@@ -206,8 +203,7 @@
         <div id="ticker4_ticker" class="title"></div>
         <div id="ticker4_price" class="description"></div>
         <div id="ticker4_change" class="description"></div>
-        <div class="description"><img id="ticker4_image" src="">
-        </div>
+        <div class="description"><img id="ticker4_image"></div>
         <div id="ticker4_percentage" class="description"></div>
       </div>
     </div>
@@ -216,8 +212,7 @@
         <div id="ticker5_ticker" class="title"></div>
         <div id="ticker5_price" class="description"></div>
         <div id="ticker5_change" class="description"></div>
-        <div class="description"><img id="ticker5_image" src="">
-        </div>
+        <div class="description"><img id="ticker5_image"></div>
         <div id="ticker5_percentage" class="description"></div>
       </div>
     </div>
@@ -226,8 +221,7 @@
         <div id="ticker6_ticker" class="title"></div>
         <div id="ticker6_price" class="description"></div>
         <div id="ticker6_change" class="description"></div>
-        <div class="description"><img id="ticker6_image" src="">
-        </div>
+        <div class="description"><img id="ticker6_image"></div>
         <div id="ticker6_percentage" class="description"></div>
       </div>
     </div>
@@ -236,8 +230,7 @@
         <div id="ticker7_ticker" class="title"></div>
         <div id="ticker7_price" class="description"></div>
         <div id="ticker7_change" class="description"></div>
-        <div class="description"><img id="ticker7_image" src="">
-        </div>
+        <div class="description"><img id="ticker7_image"></div>
         <div id="ticker7_percentage" class="description"></div>
       </div>
     </div>
@@ -246,8 +239,7 @@
         <div id="ticker8_ticker" class="title"></div>
         <div id="ticker8_price" class="description"></div>
         <div id="ticker8_change" class="description"></div>
-        <div class="description"><img id="ticker8_image" src="">
-        </div>
+        <div class="description"><img id="ticker8_image"></div>
         <div id="ticker8_percentage" class="description"></div>
       </div>
     </div>
@@ -256,13 +248,12 @@
         <div id="ticker9_ticker" class="title"></div>
         <div id="ticker9_price" class="description"></div>
         <div id="ticker9_change" class="description"></div>
-        <div class="description"><img id="ticker9_image" src="">
-        </div>
+        <div class="description"><img id="ticker9_image"></div>
         <div id="ticker9_percentage" class="description"></div>
       </div>
     </div>
     <script>
-      tickers = "AAPL,GOOGL,TSLA"
+      tickers = "AAPL,GOOG,TSLA,FB,AMZN,NFLX"
 
       postClientInfo()
       setInterval(() => {
@@ -285,10 +276,10 @@
             $(`#ticker${i + 1}_ticker`).text(tickerInfo[i]["symbol"])
             $(`#ticker${i + 1}_price`).text(tickerInfo[i]["price"].toFixed(2))
             if (tickerInfo[i]["changes"] < 0) {
-              $(`#ticker${i + 1}_name`).addClass("negative");
+              $(`#ticker${i + 1}_name`).removeClass("positive").addClass("negative");
               $(`#ticker${i + 1}_change`).html(Math.abs(tickerInfo[i]["changes"]).toFixed(2).toString() + ' <i class="fas fa-arrow-down"></i>')
             } else {
-              $(`#ticker${i + 1}_name`).addClass("positive");
+              $(`#ticker${i + 1}_name`).removeClass("negative").addClass("positive");
               $(`#ticker${i + 1}_change`).html(Math.abs(tickerInfo[i]["changes"]).toFixed(2).toString() + ' <i class="fas fa-arrow-up"></i>')
             }
             $(`#ticker${i + 1}_image`).attr("src", tickerInfo[i]["image"]);
