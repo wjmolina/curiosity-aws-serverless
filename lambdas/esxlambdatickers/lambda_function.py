@@ -61,8 +61,8 @@ def lambda_handler(event, _):
         .split(",")
         if ticker
     ]
-    if "httpMethod" not in event:
-        response = (
+    if event["httpMethod"] == "GET":
+        return (
             http.request(
                 "GET",
                 "https://esxwallpapersbucket.s3.amazonaws.com/tickertracker/wallpaper.html",
@@ -70,8 +70,7 @@ def lambda_handler(event, _):
             .data.decode("utf8")
             .replace("TICKERS_PLACEHOLDER", ",".join(tickers))
         )
-        return response
-    else:
+    elif event["httpMethod"] == "POST":
         clientip = event.get("requestContext", {}).get("identity", {}).get("sourceIp")
         message = get_clientip(clientip, tickers)
         return {
