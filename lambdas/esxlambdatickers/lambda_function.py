@@ -1,7 +1,6 @@
 import json
 import os
 from datetime import datetime, timedelta
-from time import sleep
 
 import urllib3
 from cachetools.func import TTLCache, ttl_cache
@@ -16,7 +15,6 @@ API_KEY = os.environ.get("API_KEY")
 
 @ttl_cache(ttl=TIME_DELTA_TICKER, timer=datetime.now, maxsize=MAX_SIZE_TICKER_CACHE)
 def get_ticker(ticker):
-    sleep(0.25)
     http = urllib3.PoolManager()
     response = json.loads(
         http.request(
