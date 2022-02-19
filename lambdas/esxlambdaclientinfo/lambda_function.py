@@ -40,6 +40,7 @@ def lambda_handler(event, context):
         else:
             response["message"] = "failure"
     elif event["httpMethod"] == "PATCH":
+        print("MYLOG: filling out ip info")
         items = table.scan(
             FilterExpression=boto3.dynamodb.conditions.Attr("country").not_exists()
         ).get("Items", [])
