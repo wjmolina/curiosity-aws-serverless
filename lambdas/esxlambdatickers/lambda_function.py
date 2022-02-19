@@ -16,13 +16,12 @@ API_KEY = os.environ.get("API_KEY")
 @ttl_cache(ttl=TIME_DELTA_TICKER, timer=datetime.now, maxsize=MAX_SIZE_TICKER_CACHE)
 def get_ticker(ticker):
     http = urllib3.PoolManager()
-    response = json.loads(
+    return json.loads(
         http.request(
             "GET",
             f"https://financialmodelingprep.com/api/v3/profile/{ticker}?apikey={API_KEY}",
         ).data.decode("utf8")
-    )
-    return response[0] if response else {}
+    )[0]
 
 
 def get_clientip(
