@@ -18,7 +18,6 @@ http = urllib3.PoolManager()
 
 @ttl_cache(ttl=TIME_DELTA_TICKER, timer=datetime.now, maxsize=MAX_SIZE_TICKER_CACHE)
 def get_ticker(ticker):
-    sleep(0.5)
     print(f"MYLOG: getting ticker {ticker}...")
     try:
         response = json.loads(
