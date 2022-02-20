@@ -29,8 +29,8 @@ def get_ticker(ticker):
         )
         print(f"MYLOG: returning ticker {ticker}")
         return response[0]
-    except Exception as exception:
-        print(f"MYLOG: could not get ticker {ticker}: {exception}")
+    except:
+        print(f"MYLOG: could not get ticker {ticker}: {response}")
         return {}
 
 
