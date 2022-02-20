@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime, timedelta
+from itertools import cycle
 from time import sleep
 
 import urllib3
@@ -11,7 +12,7 @@ TIME_DELTA_TICKER = timedelta(minutes=15)
 MAX_TICKERS = 9
 MAX_SIZE_CLIENT_CACHE = 100
 MAX_SIZE_TICKER_CACHE = MAX_SIZE_CLIENT_CACHE * MAX_TICKERS
-API_KEY = os.environ.get("API_KEY")
+API_KEYS = cycle(os.environ.get("API_KEYS").split(","))
 http = urllib3.PoolManager()
 
 
@@ -23,7 +24,7 @@ def get_ticker(ticker):
         response = json.loads(
             http.request(
                 "GET",
-                f"https://financialmodelingprep.com/api/v3/profile/{ticker}?apikey={API_KEY}",
+                f"https://financialmodelingprep.com/api/v3/profile/{ticker}?apikey={next(API_KEYS)}",
             ).data.decode("utf8")
         )
         print(f"MYLOG: returning ticker {ticker}")
